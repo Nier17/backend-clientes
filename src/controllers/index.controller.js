@@ -18,17 +18,12 @@ const getPromedio = async (req, res) => {
   const response = await pool.query("SELECT * FROM clientes");
   var years = [];
   response.rows.forEach((element) => {
-    console.log(element.fecnac.toString());
-    console.log(moment().diff(moment(element.fecnac), "years"));
     years.push(moment().diff(moment(element.fecnac), "years"));
   });
-  console.log(years);
   const sum = years.reduce((a, b) => a + b, 0);
-  console.log(sum);
   var avg = sum / years.length || 0;
   avg = Number(avg).toFixed(2);
-  console.log(avg);
-  res.status(200).json(response.rows);
+  res.status(200).json(avg);
 };
 
 const getClienteById = async (req, res) => {
